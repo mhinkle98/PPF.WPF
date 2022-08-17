@@ -1,17 +1,11 @@
-﻿using Microsoft.Win32;
-using PPF.WPF.MVVM.Model;
+﻿using PPF.WPF.MVVM.Model;
 using SciChart.Charting.Model.DataSeries;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
+using PPF.WPF.MVVM.View;
 
 namespace PPF.WPF.MVVM.ViewModel
 {
@@ -48,7 +42,8 @@ namespace PPF.WPF.MVVM.ViewModel
             {
                 var chart = new InterferometryChart
                 {
-                    ChartName = "Chart1"
+                    ChartName = "Chart1",
+                    XLabel = "Temperature (C)"
                 };
 
                 Charts = new ObservableCollection<InterferometryChart>() { chart };
@@ -150,6 +145,7 @@ namespace PPF.WPF.MVVM.ViewModel
                 }
                 else
                 {
+                    // time dependent
                     chart.chartType = InterferometryChart.ChartType.TimeDependent;
                     chart.XLabel = "Timestep";
                     xtitle = "Timestep";
@@ -235,12 +231,8 @@ namespace PPF.WPF.MVVM.ViewModel
         {
             get
             {
-                if (_openCommand2 == null)
-                {
-                    _openCommand2 = new RelayCommand(
-                        param => OpenDataToCurrentGraph());
-                }
-                return _openCommand2;
+                return _openCommand2 ?? (_openCommand2 = new RelayCommand(
+                    param => OpenDataToCurrentGraph()));
             }
         }
 
@@ -248,43 +240,38 @@ namespace PPF.WPF.MVVM.ViewModel
         {
             get
             {
-                if (_changeChartCommand == null)
-                {
-                    _changeChartCommand = new RelayCommand(
-                        p => ChangeChart((InterferometryChart)p),
-                        p => p is InterferometryChart);
-                }
-                return _changeChartCommand;
+                return _changeChartCommand ?? (_changeChartCommand = new RelayCommand(
+                    p => ChangeChart((InterferometryChart)p),
+                    p => p is InterferometryChart));
             }
         }
 
         public ICommand RenameChartCommand
         {
-            get
-            {
-                if (_renameChartCommand == null)
-                {
-                    _renameChartCommand = new RelayCommand(p => ChangeChartName());
-                }
-                return _renameChartCommand;
-            }
+            get { return _renameChartCommand ?? (_renameChartCommand = new RelayCommand(p => ChangeChartName())); }
         }
 
         public ICommand DeleteChartCommand
         {
             get
             {
-                if (_deleteChartCommand == null)
-                {
-                    _deleteChartCommand = new RelayCommand(
-                        p => DeleteChart());
-                }
-                return _deleteChartCommand;
+                return _deleteChartCommand ?? (_deleteChartCommand = new RelayCommand(
+                    p => DeleteChart()));
             }
         }
 
         private void DeleteChart()
         {
+            if (Charts.Count == 1)
+            {
+                var chart = new InterferometryChart
+                {
+                    ChartName = "Chart1"
+                };
+                Charts = new ObservableCollection<InterferometryChart>() { chart };
+                Selected = chart;
+                return;
+            }
             Charts.Remove(Selected);
             if (Charts.Count == 0)
             {
@@ -302,6 +289,7 @@ namespace PPF.WPF.MVVM.ViewModel
             var sel = Charts.FirstOrDefault(c => c == chart);
             var xtitle = "";
             Selected = sel;
+            if (Selected == null) return;
             Selected.ChartDataSeries.InvalidateParentSurface(RangeMode.ZoomToFit);
             switch (Selected.chartType)
             {
@@ -326,42 +314,17 @@ namespace PPF.WPF.MVVM.ViewModel
 
         private void ChangeChartName()
         {
-            var name = ShowDialog();
-            var loc = Charts.IndexOf(Selected);
-            Charts[loc].ChartName = name;
-            Selected.ChartName = name;
+            var newName = ShowRenameDialog();
+            if (newName != null) 
+                Selected.ChartName = newName;
         }
 
-        private static string ShowDialog()
+        private string ShowRenameDialog()
         {
-            var n = "";
-            Window prompt = new Window()
-            {
-                Width = 500,
-                Height = 150,
-                WindowStartupLocation = WindowStartupLocation.CenterScreen,
-                Content = new Grid() { Name = "MainGrid" },
-                ResizeMode = ResizeMode.NoResize
-            };
-            StackPanel panel = new StackPanel() { HorizontalAlignment=HorizontalAlignment.Center, VerticalAlignment=VerticalAlignment.Center};
-            Label textLabel = new Label() { Margin = new Thickness(10), Content = "Rename chart" };
-            TextBox textBox = new TextBox() { Margin = new Thickness(10), Width = 100 };
-            Button confirmation = new Button() { Content = "OK", Margin = new Thickness(10), Width = 100, };
-            confirmation.Click += (sender, e) => { n = textBox.Text; prompt.Close(); };
+            var rw = new RenameWindow(Selected.ChartName);
+            rw.ShowDialog();
 
-            var grid = prompt.Content as Grid;
-            panel.Children.Add(textLabel);
-            panel.Children.Add(textBox);
-            panel.Children.Add(confirmation);
-            grid.Children.Add(panel);
-            //grid.Children.Add(textLabel);
-            //grid.Children.Add(textBox);
-            //grid.Children.Add(confirmation);
-
-            prompt.ShowDialog();
-
-            return n.Length > 0 ? n : "";
-            //return prompt.ShowDialog() == (textBox.Text.Length > 0) ? textBox.Text : "";
+            return rw.ChartName;
         }
     }
 }

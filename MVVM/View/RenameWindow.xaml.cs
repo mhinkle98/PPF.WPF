@@ -1,16 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+﻿using System.Windows;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace PPF.WPF.MVVM.View
 {
@@ -19,9 +8,44 @@ namespace PPF.WPF.MVVM.View
     /// </summary>
     public partial class RenameWindow : Window
     {
-        public RenameWindow()
+        public bool DidGetResult;
+        
+        public string ChartName;
+        public RenameWindow(string defaultName = "NewChart")
         {
             InitializeComponent();
+            ChartName = defaultName;
+            ChartInput.Text = ChartName;
+            DidGetResult = false;
+        }
+
+
+        private void OKButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            if (ChartInput.Text != "")
+            {
+                ChartName = ChartInput.Text;
+            }
+
+            DidGetResult = true;
+            Close();
+        }
+
+        private void CancelButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void ChartInput_OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter) return;
+            if (ChartInput.Text != "")
+            {
+                ChartName = ChartInput.Text;
+            }
+
+            DidGetResult = true;
+            Close();
         }
     }
 }

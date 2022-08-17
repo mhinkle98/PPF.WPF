@@ -12,11 +12,10 @@
 
     <Grid Height="Auto" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"></RowDefinition>
-            <RowDefinition Height="24"></RowDefinition>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
             <RowDefinition Height="30"/>
-
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
@@ -24,14 +23,15 @@
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch">
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Stretch" Margin="0 0 0 2">
             <Button BorderThickness="2" Foreground="White" Padding="5" Margin="1 0 0 0" Cursor="Hand" Height="30" Content="New graph from data" Command="{Binding OpenDataNewGraphCommand}" Background="Transparent"/>
             <Button BorderThickness="2" Foreground="White" Padding="5" Margin="10 0 10 0" Cursor="Hand" Height="30" Content="Add data to current" Command="{Binding OpenDataCurrentGraphCommand}" Background="Transparent"/>
             <Button BorderThickness="2" Foreground="Salmon" Padding="5" Margin="1 0 0 0" Cursor="Hand" Height="30" Content="Delete chart" Command="{Binding DeleteChartCommand}" Background="Transparent" IsEnabled="True"/>
         </StackPanel>
-        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch">
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Orientation="Horizontal" Margin="0 0 0 5">
             <!-- should have button for renaming here -->
-            <TextBlock HorizontalAlignment="Center" Text="{Binding Selected.ChartName}" FontSize="15" Foreground="Wheat"/>
+            <TextBlock HorizontalAlignment="Center" Text="{Binding Selected.ChartName}" FontSize="20" Foreground="Wheat" Margin="0 0 3 0"/>
+            <Button Height="Auto" VerticalAlignment="Bottom" Cursor="Hand" BorderBrush="Transparent" Background="Transparent" Foreground="DarkGray" FontSize="12" FontStyle="Italic" Content="rename" Command="{Binding RenameChartCommand}"/>
         </StackPanel>
         
         <StackPanel x:Name="stackPanel" Orientation="Vertical" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Stretch">

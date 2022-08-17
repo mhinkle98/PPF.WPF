@@ -4,9 +4,18 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PPF.WPF.MVVM.View"
-        mc:Ignorable="d"
-        Title="RenameWindow" Height="450" Width="800">
+        mc:Ignorable="d" Background="#36393F"
+        Title="Rename" Height="250" Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen">
     <Grid>
-        
+        <StackPanel Margin="10">
+            <TextBlock Text="Rename the Chart" Foreground="Beige" HorizontalAlignment="Center" FontWeight="Bold" Margin="0 10 0 0" FontSize="20"></TextBlock>
+            <TextBox BorderThickness="0.5" Height="30" Background="Transparent" BorderBrush="Gray" CaretBrush="Beige" Margin="0 20 0 0" TextAlignment="Center" VerticalContentAlignment="Center" Foreground="Beige" FontSize="15" Name="ChartInput" MaxLength="50" KeyDown="ChartInput_OnKeyDown"></TextBox>
+            <StackPanel HorizontalAlignment="Center" Margin="0 20 0 0" Orientation="Horizontal">
+                <Button Background="Transparent" Foreground="Beige" Width="40" Height="25" Name="OKButton" Click="OKButton_OnClick" Content="OK" Margin="0 0 2 0"/>
+                <Button Background="Transparent" Foreground="Beige" Width="40" Height="25" Name="CancelButton" Click="CancelButton_OnClick" Content="Cancel" Margin="2 0 0 0"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

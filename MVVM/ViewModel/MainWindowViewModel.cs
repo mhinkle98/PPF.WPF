@@ -61,11 +61,13 @@ namespace PPF.WPF
             // TODO : instance could be not null, need to check for any differences
             if (Instance != null)
             {
+                SampleName = Instance.SampleName ?? Instance.filename;
                 ProcessViewModels = Instance.ProcessViewModels;
                 Instance = this;
                 return;
             }
 
+            SampleName = "New Sample - " + DateTime.Now;
             Sputter = new SputterViewModel();
             Transition = new TransitionViewModel();
             Spectrometry = new SpectrometryViewModel();
@@ -199,6 +201,7 @@ namespace PPF.WPF
                 newObject.ProcessViewModels[2] = newObject.Spectrometry;
                 newObject.ProcessViewModels[3] = newObject.Interferometry;
                 Instance.ProcessViewModels = newObject.ProcessViewModels;
+                Instance.SampleName = newObject.SampleName;
                 
                 
 

@@ -43,7 +43,7 @@
         <Border Grid.ColumnSpan="6" Background="#252525" MouseDown="UIElement_OnMouseDown">
             <Grid HorizontalAlignment="Stretch">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200" />
+                    <ColumnDefinition Width="400" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
 
@@ -52,6 +52,7 @@
                     <Image Margin="5 0 5 0" Height="20" VerticalAlignment="Center" Width="20"
                            HorizontalAlignment="Left" Source="Resources/icons8-microscope-64.png"/>
                     <Label FontWeight="SemiBold" Foreground="Beige" Content="Photonics Process Flow"/>
+                    <TextBlock Foreground="LightGray" FontWeight="Thin" Text="{Binding Instance.SampleName}"/>
                 </StackPanel>
 
                 <StackPanel Margin="0 5 10 0" Grid.Column="2" HorizontalAlignment="Right" 
@@ -96,7 +97,8 @@
                                     Command="{Binding DataContext.ChangePageCommand, 
                                     RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                     CommandParameter="{Binding }"
-                                    Margin="2,5"/>
+                                    Margin="2,5"
+                                    Style="{StaticResource StillButton}"/>
                             </Border>
 
                         </DataTemplate>

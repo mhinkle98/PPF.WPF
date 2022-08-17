@@ -45,3 +45,7 @@ D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Debug\MVVM\View\InterferometryView.g.cs
 D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Debug\MVVM\View\InterferometryView.baml
 D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Debug\MVVM\View\RenameWindow.g.cs
 D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Debug\MVVM\View\RenameWindow.baml
+D:\Code\PhotonicsProcessFlow\PPF.WPF\bin\Debug\PPF.WPF.exe.manifest
+D:\Code\PhotonicsProcessFlow\PPF.WPF\bin\Debug\PPF.WPF.application
+D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Debug\PPF.WPF.exe.manifest
+D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Debug\PPF.WPF.application

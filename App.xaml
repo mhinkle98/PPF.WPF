@@ -4,6 +4,14 @@
              xmlns:local="clr-namespace:PPF.WPF">
     <Application.Resources>
         <ResourceDictionary>
+            <Style TargetType="Button" x:Key="StillButton">
+                <Setter Property="Background" Value="Transparent"/>
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="Transparent"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
             <ResourceDictionary.MergedDictionaries>
                  <ResourceDictionary Source="Themes/ProcessCard.xaml"/>
              </ResourceDictionary.MergedDictionaries>

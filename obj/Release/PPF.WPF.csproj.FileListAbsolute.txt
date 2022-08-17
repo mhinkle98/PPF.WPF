@@ -44,3 +44,4 @@ D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Release\PPF.WPF.csproj.CoreCompileInput
 D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Release\PPF.WPF.csproj.CopyComplete
 D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Release\PPF.WPF.exe
 D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Release\PPF.WPF.pdb
+D:\Code\PhotonicsProcessFlow\PPF.WPF\obj\Release\PPF.WPF.csproj.AssemblyReference.cache
